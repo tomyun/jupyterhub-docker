@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  jupyterhub:
+    build: ./jupyterhub
+    container_name: "$JUPYTERHUB_CONTAINER"
+    networks:
+      - jupyterhub
+    ports:
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      JUPYTERHUB_CONTAINER: "${JUPYTERHUB_CONTAINER}"
+      JUPYTERHUB_NETWORK: "${JUPYTERHUB_NETWORK}"
+      NOTEBOOK_IMAGE: "${NOTEBOOK_IMAGE}"
+
+networks:
+  jupyterhub:
+    name: ${JUPYTERHUB_NETWORK}
